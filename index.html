@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090d16">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="基于 408 考研笔记改编的修仙文字剧情游戏。">
+  <title>源代码：四法问仙</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="ambient" aria-hidden="true"></div>
+
+  <main id="app">
+    <section id="title-screen" class="screen active" aria-labelledby="game-title">
+      <div class="title-celestial" aria-hidden="true"></div>
+      <div class="title-content">
+        <div class="brand-seal">太玄代码录</div>
+        <h1 id="game-title">源代码<span>四法问仙</span></h1>
+        <p class="title-epigraph">四部天书，四脉道法。一念编译，可问长生。</p>
+        <p class="title-footnote">取材自数据结构、操作系统、计算机网络、计算机组成原理</p>
+        <div class="title-rules" aria-label="游戏核心内容">
+          <span><strong>26</strong>章原文知识</span>
+          <span><strong>9603</strong>有效考点</span>
+          <span><strong>408</strong>真题式战斗</span>
+        </div>
+        <div class="title-actions">
+          <button id="new-game" class="primary-button" type="button">叩问仙途</button>
+          <button id="continue-game" class="ghost-button is-hidden" type="button">续写前缘</button>
+        </div>
+      </div>
+      <button id="title-sound" class="icon-button title-sound" type="button" aria-label="开关音效" title="开关音效">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12"/></svg>
+      </button>
+    </section>
+
+    <section id="creation-screen" class="screen" aria-labelledby="creation-title">
+      <button id="creation-back" class="icon-button top-left-button" type="button" aria-label="返回" title="返回">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <div class="creation-content">
+        <div class="eyebrow">天机书院 · 入门试</div>
+        <h2 id="creation-title">铸我道基</h2>
+        <p class="section-intro">择一脉为本命法门。四脉同修亦可，本命一脉将决定你的初始道法与诸多机缘。</p>
+        <label class="name-field" for="dao-name">
+          <span>道号</span>
+          <input id="dao-name" type="text" value="林砚" maxlength="10" autocomplete="off" placeholder="输入道号">
+        </label>
+        <div id="path-list" class="path-grid" role="list"></div>
+      </div>
+    </section>
+
+    <section id="game-screen" class="screen" aria-label="游戏主界面">
+      <header id="topbar">
+        <button id="game-menu" class="icon-button" type="button" aria-label="菜单" title="菜单">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="topbar-title">
+          <span id="top-chapter">初入山门</span>
+          <small id="top-day">第一日 · 清晨</small>
+        </div>
+        <button id="quick-save" class="icon-button" type="button" aria-label="存档" title="存档">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
+        </button>
+      </header>
+
+      <div id="scene-art" class="scene-art" aria-hidden="true"></div>
+
+      <div id="story-scroll">
+        <div id="story-panel">
+          <div id="chapter-row">
+            <span id="chapter-pill">序章</span>
+            <span id="location-label">青峰 · 石阶</span>
+          </div>
+          <div id="narrative"></div>
+          <div id="choices" class="choices"></div>
+        </div>
+      </div>
+
+      <button id="study-dock" class="study-dock" type="button" aria-label="进入本命功法修炼">
+        <span id="study-dock-glyph" class="study-dock-glyph">阵</span>
+        <span class="study-dock-copy">
+          <small>本命功法 · 逐章修习</small>
+          <strong id="study-dock-title">数据结构 · 第1章</strong>
+        </span>
+        <span id="study-dock-progress" class="study-dock-progress">0/8</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+
+      <div id="bottom-hud">
+        <button id="inner-view" class="hud-stat realm-stat" type="button">
+          <span class="hud-label">境界</span>
+          <strong id="hud-realm">凡俗</strong>
+        </button>
+        <div class="hud-stat">
+          <span class="hud-label">气血</span>
+          <strong id="hud-hp">100/100</strong>
+        </div>
+        <div class="hud-stat">
+          <span class="hud-label">灵气</span>
+          <strong id="hud-qi">80/100</strong>
+        </div>
+        <button id="journey" class="hud-stat" type="button">
+          <span class="hud-label">主线</span>
+          <strong id="hud-quest">入门试</strong>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal-layer" aria-hidden="true"></div>
+  <div id="toast-stack" aria-live="polite"></div>
+
+  <script src="curriculum.js?v=20260922f"></script>
+  <script src="questions.js?v=20260922f"></script>
+  <script src="game.js?v=20260922f"></script>
+</body>
+</html>
