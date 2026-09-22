@@ -1,0 +1,9 @@
+{
+  "name": "408修仙小游戏",
+  "short_name": "408游戏",
+  "description": "为了学习408弄的修仙小游戏",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}
